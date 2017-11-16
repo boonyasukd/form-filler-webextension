@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue popup</title>
+    <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="vendor/vue.js"></script>
+    <script src="vendor/i18n-iso-countries.js"></script>
+    <script src="vendor/newtondev-mrz-parser.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="tabs is-boxed is-small">
+            <ul>
+                <li :class="{ 'is-active': currentTab == 'passport' }">
+                    <a @click="goToPassport">
+                        <span class="icon is-small"><i class="fa fa-plane"></i></span>
+                        <span>Passport</span>
+                    </a>
+                </li>
+                <li :class="{ 'is-active': currentTab != 'passport' }">
+                    <a @click="goToThaiId">
+                        <span class="icon is-small"><i class="fa fa-id-card-o"></i></span>
+                        <span>Thai ID</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <section class="section" v-if="currentTab == 'passport'">
+            <div class="container">
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input v-model="mrz" class="input is-small" type="text" placeholder="Paste Here...">
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-barcode"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content is-size-7">
+                        <div v-if="invalid" class="notification is-danger">Invalid input</div>
+                        <table v-else class="table is-fullwidth" style="margin-bottom: 0;">
+                            <tbody v-if="passport">
+                                <tr v-for="(val, key) in passport">
+                                    <th class="has-text-right">{{key}}</th>
+                                    <td>{{val}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section" v-else>
+            <div class="container">
+                <div class="field">
+                    <p class="control">
+                        <a class="button is-link is-small" :class="{ 'is-loading': loading }" @click="fetchData">Read Card</a>
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-content is-size-7">
+                        <div v-if="invalid" class="notification is-danger">Data not found.</div>
+                        <table v-else class="table is-fullwidth" style="margin-bottom: 0;">
+                            <tbody v-if="thaiId">
+                                <tr v-for="(val, key) in thaiId">
+                                    <th class="has-text-right">{{key}}</th>
+                                    <td>{{val}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="field is-grouped">
+                <p class="control">
+                    <button class="button is-primary is-small" @click="fillForm" :disabled="invalid">Fill-in</button>
+                </p>
+                <p class="control">
+                    <button class="button is-light is-small" @click="reset">Reset</button>
+                </p>
+            </div>
+        </section>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

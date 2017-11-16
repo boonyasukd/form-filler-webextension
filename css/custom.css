@@ -1,0 +1,11 @@
+.section {
+    padding: 1rem 1.5rem;
+}
+.tabs:not(:last-child) {
+    margin-bottom: 0;
+}
+.notification {
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    position: relative;
+}
