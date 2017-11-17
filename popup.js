@@ -30,7 +30,7 @@ new Vue({
         fetchData: async function() {
             try {
                 this.loading = true;
-                const res = await fetch('http://localhost:8080/card').catch(err => { throw err; });
+                const res = await fetch('http://localhost:8080/card');
                 this.loading = false;
                 if (res.ok) {
                     this.thaiId = await res.json();
