@@ -80,8 +80,8 @@ document.getElementById("document_expiration_date_primary").value = '${this.pass
 ${genXpath('//label[.="Sex"]/../input')}.value = '${this.passport["Sex"]}';`;
             } else {
                 script = `
-document.getElementById("first_name_primary").value = '${this.thaiId["Thai Name"].split(' ')[0]}';
-document.getElementById("last_name_primary").value = '${this.thaiId["Thai Name"].split(' ').slice(1).join(' ')}';
+document.getElementById("first_name_primary").value = '${this.thaiId["First Name"]}';
+document.getElementById("last_name_primary").value = '${this.thaiId["Last Name"]}';
 document.getElementById("guest_label_birthday_primary").value = '${this.thaiId["DOB"]}';
 document.getElementById("guest_document_type").value = 'dni';
 document.getElementById("guest_document_number_primary").value = '${this.thaiId["ID"]}';
