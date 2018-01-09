@@ -34,6 +34,9 @@ new Vue({
                 this.loading = false;
                 if (res.ok) {
                     this.thaiId = await res.json();
+                    this.thaiId["DOB"] = formatDate(this.thaiId["DOB"]);
+                    this.thaiId["Issue"] = formatDate(this.thaiId["Issue"]);
+                    this.thaiId["Expiry"] = formatDate(this.thaiId["Expiry"]);
                     console.log(this.thaiId);
                 } else {
                     throw new Error('Network response was not ok.');
