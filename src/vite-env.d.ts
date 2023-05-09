@@ -45,6 +45,3 @@ declare type AppState = {
   activeTab: number;
   fileURL: string;
 };
-
-declare function $x(path: string): WritableNode[];
-declare function $n(name: string): NodeListOf<WritableNode>;
