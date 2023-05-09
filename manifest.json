@@ -1,15 +1,14 @@
 {
-    "manifest_version": 2,
-    "name": "Form Filler",
-    "description": "This extension fills in form inputs at a click of a button.",
-    "version": "0.0.1",
-    "browser_action": {
-        "default_icon": "icon.png",
-        "default_popup": "popup.html",
-        "default_title": "Click here now now!"
-    },
-    "permissions": [
-        "activeTab"
-    ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; object-src 'self'"
+  "manifest_version": 3,
+  "name": "Nice Palace Front Desk Browser Extension",
+  "description": "Extension for smooth check-in experience",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": { "16": "icon.png" }
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ]
 }
