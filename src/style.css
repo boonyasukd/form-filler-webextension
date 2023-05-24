@@ -1,0 +1,12 @@
+body {
+  min-width: 320px;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  margin: 0 auto;
+  padding: 1rem;
+}
