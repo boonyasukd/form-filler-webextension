@@ -23,12 +23,23 @@ function fillGuestInfo(info: GuestInfo) {
     elem.value = val;
   }
 
-  $n('guest_document_type', info.docType);
+  (document.querySelector("#guest_document_type") as HTMLSelectElement).value = info.docType;
+  (document.querySelector("#guest_document_type") as HTMLInputElement).dispatchEvent(new Event('change'));
+
   $n('guest_first_name', info.firstName);
   $n('guest_last_name', info.lastName);
   $n('guest_email', 'no@gmail.com');
   $n('guest_birthday', info.dob);
-  $n('guest_document_number', info.docNum);
+  (document.getElementsByName('label_birthday') as NodeListOf<WritableNode>)[0].value = info.dob;
+  (document.getElementsByName('label_birthday') as NodeListOf<WritableNode>)[0].dispatchEvent(new Event('input'));
+
+  // $n('guest_document_number', info.docNum);
+  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('focus'));
+  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('focusin'));
+  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).value = info.docNum;
+  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('input'));
+  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('focusout'));
+
   $n('guest_document_expiration_date', info.expiry);
 
   $n('guest_gender', info.sex);
@@ -44,9 +55,10 @@ function fillGuestInfo(info: GuestInfo) {
   }
 }
 
-function reformatDate(dateStr: string) {
+function reformatDate(dateStr: string, shortened = false) {
   const [year, month, date] = dateStr.match(/.{1,2}/g)!;
-  return `${date}/${month}/${year}`;
+  const fullYear = parseInt(year) <= 50 ? `20${year}` : `19${year}`;
+  return shortened ? `${date}/${month}/${year}`: `${date}/${month}/${fullYear}`;
 }
 
 const capitalize = (name: string) => name
@@ -67,7 +79,7 @@ function parseMrz(input: string[]): GuestInfo {
       docNum: mrz.documentNumber,
       firstName: capitalize(mrz.firstName),
       lastName: capitalize(mrz.lastName),
-      dob: reformatDate(mrz.birthDate),
+      dob: reformatDate(mrz.birthDate, true),
       alpha2: alpha3ToAlpha2(mrz.nationality),
       issue: '',
       expiry: reformatDate(mrz.expirationDate),

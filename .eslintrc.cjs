@@ -25,5 +25,6 @@ module.exports = {
 
     '@typescript-eslint/semi': ['error'],
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-extra-non-null-assertion': 'off',
   },
 };
