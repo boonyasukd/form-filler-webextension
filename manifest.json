@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Nice Palace Front Desk Browser Extension",
   "description": "Extension for smooth check-in experience",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "action": {
     "default_popup": "index.html",
     "default_icon": { "16": "icon.png" }
