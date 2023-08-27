@@ -23,22 +23,23 @@ function fillGuestInfo(info: GuestInfo) {
     elem.value = val;
   }
 
-  (document.querySelector("#guest_document_type") as HTMLSelectElement).value = info.docType;
-  (document.querySelector("#guest_document_type") as HTMLInputElement).dispatchEvent(new Event('change'));
+  function $e(name: string, type: string) {
+    (document.getElementsByName(name) as NodeListOf<WritableNode>)[0].dispatchEvent(new Event(type));
+  }
+
+  $n('guest_document_type', info.docType);
+  $e('guest_document_type', 'change');
 
   $n('guest_first_name', info.firstName);
   $n('guest_last_name', info.lastName);
   $n('guest_email', 'no@gmail.com');
   $n('guest_birthday', info.dob);
-  (document.getElementsByName('label_birthday') as NodeListOf<WritableNode>)[0].value = info.dob;
-  (document.getElementsByName('label_birthday') as NodeListOf<WritableNode>)[0].dispatchEvent(new Event('input'));
 
-  // $n('guest_document_number', info.docNum);
-  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('focus'));
-  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('focusin'));
-  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).value = info.docNum;
-  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('input'));
-  (document.querySelector("#guest_document_number_primary") as HTMLInputElement).dispatchEvent(new Event('focusout'));
+  $n('label_birthday', info.dob);
+  $e('label_birthday', 'input');
+
+  $n('guest_document_number', info.docNum);
+  $e('guest_document_number', 'input');
 
   $n('guest_document_expiration_date', info.expiry);
 
@@ -55,10 +56,10 @@ function fillGuestInfo(info: GuestInfo) {
   }
 }
 
-function reformatDate(dateStr: string, shortened = false) {
+function reformatDate(dateStr: string) {
   const [year, month, date] = dateStr.match(/.{1,2}/g)!;
   const fullYear = parseInt(year) <= 50 ? `20${year}` : `19${year}`;
-  return shortened ? `${date}/${month}/${year}`: `${date}/${month}/${fullYear}`;
+  return `${date}/${month}/${fullYear}`;
 }
 
 const capitalize = (name: string) => name
@@ -79,7 +80,7 @@ function parseMrz(input: string[]): GuestInfo {
       docNum: mrz.documentNumber,
       firstName: capitalize(mrz.firstName),
       lastName: capitalize(mrz.lastName),
-      dob: reformatDate(mrz.birthDate, true),
+      dob: reformatDate(mrz.birthDate),
       alpha2: alpha3ToAlpha2(mrz.nationality),
       issue: '',
       expiry: reformatDate(mrz.expirationDate),
